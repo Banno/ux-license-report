@@ -1,0 +1,30 @@
+{
+  "name": "ux-license-report",
+  "version": "1.0.0",
+  "description": "Generates license reports of 3rd-party software dependencies",
+  "main": "index.js",
+  "scripts": {
+    "lint": "ux-lint *.js test/*.js --extend .lintrc",
+    "test": "JASMINE_CONFIG_PATH=test/jasmine.json jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/banno/ux-license-report.git"
+  },
+  "keywords": [
+    "license",
+    "dependency",
+    "reporter",
+    "generator"
+  ],
+  "author": "Eric Heikes <eric.heikes@banno.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/banno/ux-license-report/issues"
+  },
+  "homepage": "https://github.com/banno/ux-license-report",
+  "devDependencies": {
+    "jasmine": "^2.5.3",
+    "ux-lint": "^1.4.0"
+  }
+}
