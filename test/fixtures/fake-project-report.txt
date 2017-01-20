@@ -1,0 +1,9 @@
+Dependency Licenses
+-------------------
+
+* left-pad
+  URL: https://github.com/azer/left-pad#readme
+  Version: 1.0.0
+  License: WTFPL
+  Description: String left pad
+
