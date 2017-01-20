@@ -1,0 +1,15 @@
+Dependency Licenses
+-------------------
+
+* lodash
+  URL: https://lodash.com/
+  Version: 4.17.4
+  License: MIT
+  Description: Lodash modular utilities.
+
+* nlf
+  URL: https://github.com/iandotkelly/nlf
+  Version: 1.4.2
+  License: MIT
+  Description: Find licenses for a node application and its node_module dependencies
+

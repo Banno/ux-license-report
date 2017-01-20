@@ -25,6 +25,11 @@
   "homepage": "https://github.com/banno/ux-license-report",
   "devDependencies": {
     "jasmine": "^2.5.3",
+    "tempfile": "^1.1.1",
     "ux-lint": "^1.4.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "nlf": "^1.4.2"
   }
 }
