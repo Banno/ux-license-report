@@ -8,7 +8,7 @@ describe('"path" option', () => {
 	let report, expectedReport;
 
 	beforeAll(done => {
-		expectedReport = helper.getFixture('fake-project-report.txt');
+		expectedReport = helper.getReport('fake-project-report.txt');
 		module.generateReport({ path: path.resolve(__dirname, 'fixtures', 'fake-project') })
 			.then(r => { report = r; })
 			.then(done)

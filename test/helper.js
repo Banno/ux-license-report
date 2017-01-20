@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Retrieves the contents of a file in test/fixtures.
-let getFixture = (filename) => {
+let getReport = (filename) => {
 	filename = path.resolve(__dirname, 'fixtures', 'reports', filename);
 	return fs.readFileSync(filename, 'utf8');
 };
@@ -34,4 +34,4 @@ let toBeReport = (util, customEqualityTesters) => {
 exports.customMatchers = {
 	toBeReport: toBeReport
 };
-exports.getFixture = getFixture;
+exports.getReport = getReport;

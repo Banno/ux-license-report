@@ -10,7 +10,7 @@ describe('default options', () => {
 
 	beforeAll(done => {
 		jasmine.addMatchers(helper.customMatchers);
-		expectedReport = helper.getFixture('default-report.txt');
+		expectedReport = helper.getReport('default-report.txt');
 		module.generateReport()
 			.then(r => { report = r; })
 			.then(done)

@@ -9,7 +9,7 @@ describe('"include" option', () => {
 	describe('as ["dev"]', () => {
 
 		beforeAll(done => {
-			expectedReport = helper.getFixture('dev-report.txt');
+			expectedReport = helper.getReport('dev-report.txt');
 			module.generateReport({ include: ['dev'] })
 				.then(r => { report = r; })
 				.then(done)
@@ -25,7 +25,7 @@ describe('"include" option', () => {
 	describe('as ["npm"]', () => {
 
 		beforeAll(done => {
-			expectedReport = helper.getFixture('default-report.txt');
+			expectedReport = helper.getReport('default-report.txt');
 			module.generateReport({ include: ['npm'] })
 				.then(r => { report = r; })
 				.then(done)
@@ -41,7 +41,7 @@ describe('"include" option', () => {
 	describe('as ["dev", "npm"]', () => {
 
 		beforeAll(done => {
-			expectedReport = helper.getFixture('all-deps-report.txt');
+			expectedReport = helper.getReport('all-deps-report.txt');
 			module.generateReport({ include: ['dev', 'npm'] })
 				.then(r => { report = r; })
 				.then(done)
