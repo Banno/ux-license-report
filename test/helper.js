@@ -5,7 +5,7 @@ const path = require('path');
 
 // Retrieves the contents of a file in test/fixtures.
 let getFixture = (filename) => {
-	filename = path.resolve(__dirname, 'fixtures', filename);
+	filename = path.resolve(__dirname, 'fixtures', 'reports', filename);
 	return fs.readFileSync(filename, 'utf8');
 };
 
