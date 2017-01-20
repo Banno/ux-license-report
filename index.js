@@ -7,6 +7,11 @@ const path = require('path');
 
 const templateFile = path.resolve(__dirname, 'template.txt');
 
+const defaultOpts = {
+	include: ['npm'],
+	path: process.cwd()
+};
+
 function Report() {
 	this.licenses = [];
 	this.generated = '';
@@ -23,22 +28,23 @@ Report.prototype.write = function(filename) {
 
 // Returns an array of info for the npm dependencies for
 //   the project at the given path.
+// Passed options should match that of generateReport().
 // Objects in the returned array include the properties:
 //   * name: string
 //   * description: string or undefined
 //   * homepage: string or undefined
 //   * licenses: array of strings
 //   * version: string
-function getNpmLicenses(rootPath) {
+function getNpmLicenses(opts) {
 	let lookupLicenses = () => {
-		let rootPkg = require(path.resolve(rootPath, 'package.json'));
+		let rootPkg = require(path.resolve(opts.path, 'package.json'));
 
 		let getLicenses = () => {
 			return new Promise((resolve, reject) => {
 				nlf.find({
-					directory: rootPath,
+					directory: opts.path,
 					depth: 0,
-					production: true,
+					production: !opts.include.includes('dev'),
 					summaryMode: 'off'
 				}, function(err, data) {
 					if (err) { return reject(err); }
@@ -48,7 +54,10 @@ function getNpmLicenses(rootPath) {
 		};
 
 		let isChildPackage = pkg => {
-			return Object.keys(rootPkg.dependencies).includes(pkg.name);
+			return (
+				(opts.include.includes('npm') && Object.keys(rootPkg.dependencies).includes(pkg.name)) ||
+				(opts.include.includes('dev') && Object.keys(rootPkg.devDependencies).includes(pkg.name))
+			);
 		};
 
 		let extractLicenses = pkg => {
@@ -87,8 +96,9 @@ function getNpmLicenses(rootPath) {
 }
 
 // Returns a Promise that resolves with a Report object.
-function generateReport() {
-	return getNpmLicenses(process.cwd()).then(licenses => {
+function generateReport(opts) {
+	opts = Object.assign({}, defaultOpts, opts);
+	return getNpmLicenses(opts).then(licenses => {
 		let report = new Report();
 		let template = fs.readFileSync(templateFile, 'utf8');
 		let compiledTemplate = _.template(template);

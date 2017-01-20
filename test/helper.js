@@ -1,5 +1,15 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+
+// Retrieves the contents of a file in test/fixtures.
+let getFixture = (filename) => {
+	filename = path.resolve(__dirname, 'fixtures', filename);
+	return fs.readFileSync(filename, 'utf8');
+};
+
+// Custom Jasmine matchers
 let matchers = {
 	toBeReport: (util, customEqualityTesters) => {
 		return {
@@ -24,3 +34,4 @@ let matchers = {
 };
 
 exports.customMatchers = matchers;
+exports.getFixture = getFixture;

@@ -1,0 +1,20 @@
+Dependency Licenses
+-------------------
+
+* jasmine
+  URL: http://jasmine.github.io/
+  Version: 2.5.3
+  License: MIT
+  Description: Command line jasmine
+
+* tempfile
+  Version: 1.1.1
+  License: MIT
+  Description: Get a random temp file path
+
+* ux-lint
+  URL: https://github.com/Banno/ux-lint
+  Version: 1.4.0
+  License: Apache-2.0
+  Description: Linting tool for Banno UX projects
+

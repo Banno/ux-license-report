@@ -4,16 +4,13 @@ describe('default options', () => {
 	const fs = require('fs');
 	const helper = require('./helper');
 	const module = require('../');
-	const path = require('path');
 	const tempfile = require('tempfile');
-
-	const expectedReportFile = path.resolve(__dirname, 'fixtures', 'default-report.txt');
 
 	let report, expectedReport;
 
 	beforeAll(done => {
 		jasmine.addMatchers(helper.customMatchers);
-		expectedReport = fs.readFileSync(expectedReportFile, 'utf8');
+		expectedReport = helper.getFixture('default-report.txt');
 		module.generateReport()
 			.then(r => { report = r; })
 			.then(done)
