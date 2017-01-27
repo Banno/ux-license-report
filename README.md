@@ -31,7 +31,17 @@ The returned report object has the following properties:
 
 ## CLI
 
-TODO
+If you have this module installed globally or inside another project, you can call it on the command line from the `generate-license-report.js` script:
+
+```
+$ ./generate-license-report.js [rootPath] [--include npm] [--include dev] > licenses.txt
+```
+
+If the root path is not specified, the current working directory is used. The default `--include` value is `npm`.
+
+The generated report sent to standard output (`stdout`), so you can save it by redirecting it to a file (as shown in the example above). Any errors or warnings are sent to standard error (`stderr`).
+
+Call the script with the `--help` option (`./generate-license-report.js --help`) to see the usage info.
 
 ## Contributing
 

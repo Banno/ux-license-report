@@ -37,7 +37,12 @@ Report.prototype.write = function(filename) {
 //   * version: string
 function getNpmLicenses(opts) {
 	let lookupLicenses = () => {
-		let rootPkg = require(path.resolve(opts.path, 'package.json'));
+		let rootPkg;
+		try {
+			rootPkg = require(path.resolve(opts.path, 'package.json'));
+		} catch (err) {
+			return Promise.reject(err);
+		}
 
 		let getLicenses = () => {
 			return new Promise((resolve, reject) => {
@@ -96,6 +101,9 @@ function getNpmLicenses(opts) {
 }
 
 // Returns a Promise that resolves with a Report object.
+// Options:
+//   * include -- Array of "npm" and/or "dev".
+//   * path -- The root path of the project.
 function generateReport(opts) {
 	opts = Object.assign({}, defaultOpts, opts);
 	return getNpmLicenses(opts).then(licenses => {

@@ -13,6 +13,12 @@ Dependency Licenses
   License: MIT
   Description: Lodash modular utilities.
 
+* minimist
+  URL: https://github.com/substack/minimist
+  Version: 1.2.0
+  License: MIT
+  Description: parse argument options
+
 * nlf
   URL: https://github.com/iandotkelly/nlf
   Version: 1.4.2
