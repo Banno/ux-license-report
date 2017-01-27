@@ -1,0 +1,14 @@
+Dependency Licenses
+-------------------
+
+* requirejs
+  URL: http://requirejs.org
+  Version: 2.3.2
+  License: MIT
+  Description: A file and module loader for JavaScript
+
+* underscore
+  URL: https://github.com/jashkenas/underscore
+  Version: 1.8.3
+  License: MIT
+

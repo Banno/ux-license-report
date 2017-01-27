@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const bowerLicenses = require('bower-license');
 const fs = require('fs');
 const nlf = require('nlf');
 const path = require('path');
@@ -26,8 +27,38 @@ Report.prototype.write = function(filename) {
 	fs.writeFileSync(filename, this.generated);
 };
 
-// Returns an array of info for the npm dependencies for
-//   the project at the given path.
+// Resolve to an array of info for the bower dependencies
+//   for the project at the given path.
+// Passed options should match that of generateReport().
+// Objects in the returned array include the properties:
+//   * name: string
+//   * description: string or undefined
+//   * homepage: string or undefined
+//   * licenses: array of strings
+//   * version: string
+function getBowerLicenses(opts) {
+	let bowerDir = path.join(opts.path, 'bower_components');
+	return new Promise((resolve, reject) => {
+		bowerLicenses.init({ directory: bowerDir }, function(licenses, err) {
+			if (err) { return reject(err); }
+			let reformatted = Object.keys(licenses).map(key => {
+				let data = licenses[key];
+				let [unused, name, version] = key.match(/^(.*)@(.*)$/); // eslint-disable-line no-unused-vars
+				data.name = name;
+				data.licenses = data.licenses.map(license => {
+					// Remove the "*" that is added to guesses.
+					return license.replace(/\*$/, '');
+				});
+				data.version = version;
+				return data;
+			});
+			resolve(reformatted);
+		});
+	});
+}
+
+// Resolve to an array of info for the npm dependencies
+//   for the project at the given path.
 // Passed options should match that of generateReport().
 // Objects in the returned array include the properties:
 //   * name: string
@@ -106,7 +137,18 @@ function getNpmLicenses(opts) {
 //   * path -- The root path of the project.
 function generateReport(opts) {
 	opts = Object.assign({}, defaultOpts, opts);
-	return getNpmLicenses(opts).then(licenses => {
+
+	let collectors = [];
+	if (opts.include.includes('npm') || opts.include.includes('dev')) {
+		collectors.push(getNpmLicenses(opts));
+	}
+	if (opts.include.includes('bower')) {
+		collectors.push(getBowerLicenses(opts));
+	}
+
+	return Promise.all(collectors).then(results => {
+		return Array.prototype.concat.apply([], results);
+	}).then(licenses => {
 		let report = new Report();
 		let template = fs.readFileSync(templateFile, 'utf8');
 		let compiledTemplate = _.template(template);

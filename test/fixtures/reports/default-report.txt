@@ -1,6 +1,11 @@
 Dependency Licenses
 -------------------
 
+* bower-license
+  Version: 0.4.4
+  License: Apache-2.0
+  Description: Generates a list of bower dependencies for a project
+
 * lodash
   URL: https://lodash.com/
   Version: 4.17.4

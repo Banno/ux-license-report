@@ -1,6 +1,11 @@
 Dependency Licenses
 -------------------
 
+* bower-license
+  Version: 0.4.4
+  License: Apache-2.0
+  Description: Generates a list of bower dependencies for a project
+
 * jasmine
   URL: http://jasmine.github.io/
   Version: 2.5.3

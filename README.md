@@ -2,7 +2,7 @@
 
 > Generates license reports of 3rd-party software dependencies
 
-Looks through a project's npm `dependencies` (and optionally `devDependencies`), pulls out licensing information, and compiles it into a given template.
+Looks through a project's npm `dependencies` (and optionally `devDependencies` and Bower `dependencies`), pulls out licensing information, and compiles it into a given template.
 
 ```javascript
 const licenser = require('ux-license-report');
@@ -20,7 +20,7 @@ Returns a Promise that resolves to the generated report.
 
 Options:
 
-* `include`: Array of `npm` (for package.json `dependencies`), and/or `dev` (for package.json `devDependencies`). Default is `['npm']`.
+* `include`: Array of `npm` (for package.json `dependencies`), `dev` (for package.json `devDependencies`), and/or `bower` (for bower.json `dependencies`). Default is `['npm']`.
 * `path`: The root path of the project.
 
 The returned report object has the following properties:
@@ -34,7 +34,7 @@ The returned report object has the following properties:
 If you have this module installed globally or inside another project, you can call it on the command line from the `generate-license-report.js` script:
 
 ```
-$ ./generate-license-report.js [rootPath] [--include npm] [--include dev] > licenses.txt
+$ ./generate-license-report.js [rootPath] [--include npm] [--include dev] [--include bower] > licenses.txt
 ```
 
 If the root path is not specified, the current working directory is used. The default `--include` value is `npm`.

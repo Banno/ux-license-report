@@ -1,0 +1,8 @@
+{
+  "name": "fake-package",
+  "private": true,
+  "dependencies": {
+    "requirejs": "^2.1.0",
+		"underscore": "^1.0.0"
+  }
+}
