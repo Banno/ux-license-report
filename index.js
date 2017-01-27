@@ -147,8 +147,18 @@ function generateReport(opts) {
 	}
 
 	return Promise.all(collectors).then(results => {
+		// Combine the results from all the collectors.
 		return Array.prototype.concat.apply([], results);
 	}).then(licenses => {
+		// Sort the licenses by name.
+		licenses.sort((a, b) => {
+			if (a.name < b.name) { return -1; }
+			if (a.name > b.name) { return 1; }
+			return 0;
+		});
+		return licenses;
+	}).then(licenses => {
+		// Create the report.
 		let report = new Report();
 		let template = fs.readFileSync(templateFile, 'utf8');
 		let compiledTemplate = _.template(template);
