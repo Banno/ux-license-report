@@ -32,7 +32,7 @@
     "ux-lint": "^1.4.0"
   },
   "dependencies": {
-    "bower-license": "git+https://github.com/banno/bower-license",
+    "bower-license": "git+https://github.com/banno/bower-license.git",
     "lodash": "^4.17.4",
     "minimist": "^1.2.0",
     "nlf": "^1.4.2",

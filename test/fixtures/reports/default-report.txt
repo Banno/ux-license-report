@@ -2,7 +2,6 @@ Dependency Licenses
 -------------------
 
 * bower-license
-  URL: https://github.com/AceMetrix/bower-license#readme
   Version: 0.4.4
   License: Apache-2.0
   Description: Generates a list of bower dependencies for a project

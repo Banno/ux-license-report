@@ -95,9 +95,9 @@ bower-json@~0.4.0:
     graceful-fs "~2.0.0"
     intersect "~0.0.3"
 
-"bower-license@git+https://github.com/banno/bower-license":
+"bower-license@git+https://github.com/banno/bower-license.git":
   version "0.4.4"
-  resolved "git+https://github.com/banno/bower-license#5cb59f6b65c99edf3769e98a75c25afc02340e23"
+  resolved "git+https://github.com/banno/bower-license.git#5cb59f6b65c99edf3769e98a75c25afc02340e23"
   dependencies:
     bower-json "~0.4.0"
     npm-license "~0.3.3"
