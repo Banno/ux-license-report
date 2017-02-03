@@ -1,6 +1,12 @@
 Dependency Licenses
 -------------------
 
+* angular-briefcache
+  URL: https://github.com/Banno/angular-briefcache
+  Version: 1.3.2
+  License: Apache-2.0
+  Description: (DEPRECATED -- use npm instead) Cache factory for Angular with short expirations
+
 * requirejs
   URL: http://requirejs.org
   Version: 2.3.2

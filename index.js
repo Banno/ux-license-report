@@ -41,6 +41,8 @@ Report.prototype.write = function(filename) {
 //   * version: string
 function getBowerLicenses(opts) {
 	let bowerDir = path.join(opts.path, 'bower_components');
+	let isAGuess = str => { str.match(/\*$/) };
+	let isNotAGuess = str => { !isAGuess(str) };
 	return new Promise((resolve, reject) => {
 		bowerLicenses.init({ directory: bowerDir }, function(licenses, err) {
 			if (err) { return reject(err); }
@@ -48,10 +50,17 @@ function getBowerLicenses(opts) {
 				let data = licenses[key];
 				let [unused, name, version] = key.match(/^(.*)@(.*)$/); // eslint-disable-line no-unused-vars
 				data.name = name;
-				data.licenses = data.licenses.map(license => {
-					// Remove the "*" that is added to guesses.
-					return license.replace(/\*$/, '');
-				});
+				// Handle the license guesses (https://github.com/AceMetrix/bower-license#notes).
+				// If there is at least one reliable (non-guess) license, remove the guesses.
+				// Otherwise strip off the asterisks.
+				if (data.licenses.some(isNotAGuess)) {
+					data.licenses = data.licenses.filter(isNotAGuess);
+				} else {
+					data.licenses = data.licenses.map(license => {
+						// Remove the "*" that is added to guesses.
+						return license.replace(/\*$/, '');
+					});
+				}
 				data.version = version;
 				return data;
 			});

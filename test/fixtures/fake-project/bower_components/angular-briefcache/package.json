@@ -1,0 +1,47 @@
+{
+  "name": "angular-briefcache",
+  "description": "Cache factory for Angular with short expirations",
+  "version": "1.3.2",
+  "homepage": "https://github.com/Banno/angular-briefcache",
+  "license": "Apache-2.0",
+  "contributors": [
+    "Eric Heikes <eric.heikes@banno.com>"
+  ],
+  "keywords": [
+    "angular",
+    "cache"
+  ],
+  "dependencies": {
+    "angular": "^1.3.15",
+    "angular-cache": "^4.0.0"
+  },
+  "devDependencies": {
+    "angular": "^1.3.15",
+    "angular-cache": "^4.2.0",
+    "angular-mocks": "^1.3.15",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-header": "^1.2.2",
+    "gulp-jshint": "^2.0.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp-umd": "^0.2.0",
+    "jasmine-core": "^2.3.4",
+    "jshint": "^2.9.4",
+    "jshint-stylish": "^2.0.1",
+    "karma": "^1.3.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-requirejs": "^1.1.0",
+    "phantomjs-prebuilt": "^2.1.13",
+    "requirejs": "^2.1.0",
+    "run-sequence": "^1.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Banno/angular-briefcache.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Banno/angular-briefcache/issues"
+  }
+}

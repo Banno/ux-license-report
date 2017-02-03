@@ -1,0 +1,19 @@
+{
+  "name": "angular-briefcache",
+  "description": "(DEPRECATED -- use npm instead) Cache factory for Angular with short expirations",
+  "authors": [
+    "Eric Heikes <eric.heikes@banno.com>"
+  ],
+  "keywords": ["angular", "cache", "http"],
+  "main": "dist/angular-briefcache.js",
+  "ignore": [
+    "**/.*",
+    "gulpfile.js",
+    "bower_components",
+    "node_modules"
+  ],
+  "moduleType": ["globals", "amd"],
+  "dependencies": {
+    "angular-cache": "^4.0.0"
+  }
+}
