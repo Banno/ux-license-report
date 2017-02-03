@@ -163,6 +163,15 @@ function generateReport(opts) {
 		// Combine the results from all the collectors.
 		return Array.prototype.concat.apply([], results);
 	}).then(licenses => {
+		// Exclude "UNLICENSED" licenses.
+		// It's not useful info, and spdx-correct incorrectly corrects it to the Unlicense.
+		return licenses.map(info => {
+			info.licenses = info.licenses.filter(licenseName => {
+				return licenseName.toLowerCase() !== 'unlicensed';
+			});
+			return info;
+		});
+	}).then(licenses => {
 		// Correct any invalid licenses.
 		return licenses.map(licenseInfo => {
 			licenseInfo.licenses = licenseInfo.licenses.map(licenseName => {
