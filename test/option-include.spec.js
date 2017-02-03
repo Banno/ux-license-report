@@ -3,6 +3,7 @@ describe('"include" option', () => {
 
 	const helper = require('./helper');
 	const module = require('../');
+	const path = require('path');
 
 	let report, expectedReport;
 
@@ -18,6 +19,20 @@ describe('"include" option', () => {
 
 		it('should only include dev deps', () => {
 			expect(report.toString()).toBe(expectedReport);
+		});
+
+		it('should not throw an error if "devDependencies" is not defined', done => {
+			let hadError;
+			module.generateReport({
+				include: ['dev'],
+				path: path.resolve(__dirname, 'fixtures', 'fake-project')
+			}).then(() => {
+				hadError = false;
+			}).catch(() => {
+				hadError = true;
+			}).then(() => {
+				expect(hadError).toBe(false);
+			}).then(done);
 		});
 
 	});

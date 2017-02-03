@@ -94,8 +94,8 @@ function getNpmLicenses(opts) {
 
 		let isChildPackage = pkg => {
 			return (
-				(opts.include.includes('npm') && Object.keys(rootPkg.dependencies).includes(pkg.name)) ||
-				(opts.include.includes('dev') && Object.keys(rootPkg.devDependencies).includes(pkg.name))
+				(opts.include.includes('npm') && Object.keys(rootPkg.dependencies || {}).includes(pkg.name)) ||
+				(opts.include.includes('dev') && Object.keys(rootPkg.devDependencies || {}).includes(pkg.name))
 			);
 		};
 
