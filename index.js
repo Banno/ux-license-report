@@ -175,9 +175,11 @@ function generateReport(opts) {
 	}).then(licenses => {
 		// Remove duplicate entries (duplicate dependencies, as well as
 		//   duplicated licenses inside the dependencies).
-		return _.uniqBy(licenses, 'name').map(licenseInfo => {
-			licenseInfo.licenses = _.uniq(licenseInfo.licenses);
-			return licenseInfo;
+		return _.uniqBy(licenses, info => {
+			return `${info.name}@${info.version}`;
+		}).map(info => {
+			info.licenses = _.uniq(info.licenses);
+			return info;
 		});
 	}).then(licenses => {
 		// Sort the licenses by name.
