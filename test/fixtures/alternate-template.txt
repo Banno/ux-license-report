@@ -1,0 +1,11 @@
+Dependency Licenses
+-------------------
+
+This is an alternate template.
+
+Test scalar: <% if (typeof testScalar !== 'undefined') { %><%= testScalar %><% } %>
+Test object: <% if (typeof testObj !== 'undefined') { %><%= testObj.foo %><% } %>
+
+<% _.forEach(licenses, function(license) { %>
+	<%- license.name %>
+<% }) %>

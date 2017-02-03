@@ -7,10 +7,13 @@ const nlf = require('nlf');
 const path = require('path');
 
 const templateFile = path.resolve(__dirname, 'template.txt');
+const templateContents = fs.readFileSync(templateFile, 'utf8');
 
 const defaultOpts = {
+	context: {},
 	include: ['npm'],
-	path: process.cwd()
+	path: process.cwd(),
+	template: templateContents,
 };
 
 function Report() {
@@ -160,9 +163,9 @@ function generateReport(opts) {
 	}).then(licenses => {
 		// Create the report.
 		let report = new Report();
-		let template = fs.readFileSync(templateFile, 'utf8');
-		let compiledTemplate = _.template(template);
-		report.generated = compiledTemplate({ licenses: licenses });
+		let compiledTemplate = _.template(opts.template);
+		let context = Object.assign({}, opts.context, { licenses: licenses });
+		report.generated = compiledTemplate(context);
 		return report;
 	});
 }

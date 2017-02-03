@@ -20,8 +20,10 @@ Returns a Promise that resolves to the generated report.
 
 Options:
 
+* `context`: Object of values (indexed by property) to add to the template. Default is `{}`.
 * `include`: Array of `npm` (for package.json `dependencies`), `dev` (for package.json `devDependencies`), and/or `bower` (for bower.json `dependencies`). Default is `['npm']`.
 * `path`: The root path of the project.
+* `template`: [Lodash template](https://lodash.com/docs/4.17.4#template) string to use when rendering. Default is in [`template.txt`](https://github.com/Banno/ux-license-report/blob/master/template.txt).
 
 The returned report object has the following properties:
 
@@ -34,10 +36,16 @@ The returned report object has the following properties:
 If you have this module installed globally or inside another project, you can call it on the command line from the `generate-license-report.js` script:
 
 ```
-$ ./generate-license-report.js [rootPath] [--include npm] [--include dev] [--include bower] > licenses.txt
+$ ./generate-license-report.js [ROOTPATH]
+     [--include npm] [--include dev] [--include bower]
+     [--template FILE]
+     [--CONTEXT VALUE --CONTEXT VALUE ...]
+     > licenses.txt
 ```
 
-If the root path is not specified, the current working directory is used. The default `--include` value is `npm`.
+If the root path is not specified, the current working directory is used. The default values for other options are the same as the API.
+
+All options are passed through to the template, so you can add to the context by passing scalar values or JSON strings. For example: `./generate-license-report.js --foo 1 --bar '{"bar": "value"}'`.
 
 The generated report sent to standard output (`stdout`), so you can save it by redirecting it to a file (as shown in the example above). Any errors or warnings are sent to standard error (`stderr`).
 
