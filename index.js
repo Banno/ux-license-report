@@ -42,8 +42,8 @@ Report.prototype.write = function(filename) {
 //   * version: string
 function getBowerLicenses(opts) {
 	let bowerDir = path.join(opts.path, 'bower_components');
-	let isAGuess = str => { str.match(/\*$/) };
-	let isNotAGuess = str => { !isAGuess(str) };
+	let isAGuess = str => { return str.match(/\*$/); };
+	let isNotAGuess = str => { return !isAGuess(str); };
 	return new Promise((resolve, reject) => {
 		bowerLicenses.init({ directory: bowerDir }, function(licenses, err) {
 			if (err) { return reject(err); }
