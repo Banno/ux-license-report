@@ -25,3 +25,8 @@ Dependency Licenses
   License: MIT
   Description: Find licenses for a node application and its node_module dependencies
 
+* spdx-correct
+  Version: 1.0.2
+  License: Apache-2.0
+  Description: correct invalid SPDX identifiers
+

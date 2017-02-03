@@ -5,6 +5,7 @@ const bowerLicenses = require('bower-license');
 const fs = require('fs');
 const nlf = require('nlf');
 const path = require('path');
+const correctSpdx = require('spdx-correct');
 
 const templateFile = path.resolve(__dirname, 'template.txt');
 const templateContents = fs.readFileSync(templateFile, 'utf8');
@@ -161,6 +162,23 @@ function generateReport(opts) {
 	return Promise.all(collectors).then(results => {
 		// Combine the results from all the collectors.
 		return Array.prototype.concat.apply([], results);
+	}).then(licenses => {
+		// Correct any invalid licenses.
+		return licenses.map(licenseInfo => {
+			licenseInfo.licenses = licenseInfo.licenses.map(licenseName => {
+				let corrected = correctSpdx(licenseName);
+				if (corrected) { return corrected; }
+				return licenseName;
+			});
+			return licenseInfo;
+		});
+	}).then(licenses => {
+		// Remove duplicate entries (duplicate dependencies, as well as
+		//   duplicated licenses inside the dependencies).
+		return _.uniqBy(licenses, 'name').map(licenseInfo => {
+			licenseInfo.licenses = _.uniq(licenseInfo.licenses);
+			return licenseInfo;
+		});
 	}).then(licenses => {
 		// Sort the licenses by name.
 		licenses.sort((a, b) => {
