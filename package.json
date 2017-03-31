@@ -37,5 +37,8 @@
     "minimist": "^1.2.0",
     "nlf": "^1.4.2",
     "spdx-correct": "^1.0.2"
+  },
+  "engines": {
+    "node": ">=6"
   }
 }
