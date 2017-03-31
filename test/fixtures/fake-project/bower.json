@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
 		"angular-briefcache": "^1.3.2",
+		"no-license": "^1.0.0",
     "requirejs": "^2.1.0",
 		"underscore": "^1.0.0"
   }

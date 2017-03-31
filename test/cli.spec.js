@@ -17,7 +17,7 @@ describe('CLI', () => {
 				stderr += data;
 			});
 			cli.on('close', code => {
-				if (code > 0) { return reject(new Error('cli.js returned error')); }
+				if (code > 0) { return reject(new Error(`cli.js returned error\n${stderr}`)); }
 				resolve();
 			});
 		});
@@ -44,6 +44,12 @@ describe('CLI', () => {
 		callCli('/nonexistent-path').then(() => {
 			expect(stderr).toMatch('ERROR:');
 		}).catch(() => done());
+	});
+
+	it('should print warnings to stderr', done => {
+		callCli('./test/fixtures/fake-project --include bower').then(() => {
+			expect(stderr).toMatch('WARNING: underscore module');
+		}).then(done);
 	});
 
 	describe('path parameter', () => {

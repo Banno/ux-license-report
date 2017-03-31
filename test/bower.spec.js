@@ -23,8 +23,8 @@ describe('bower dependencies', () => {
 		expect(report).toBeReport();
 	});
 
-	it('should have no warnings', () => {
-		expect(report.warnings).toEqual([]);
+	it('should include warnings', () => {
+		expect(report.warnings).toEqual(['underscore module does not have a "license" property, inferring as MIT']);
 	});
 
 	it('should return the report', () => {

@@ -7,6 +7,11 @@ Dependency Licenses
   License: Apache-2.0
   Description: (DEPRECATED -- use npm instead) Cache factory for Angular with short expirations
 
+* no-license
+  Version: 1.0.0
+  License: Unknown
+  Description: Package that has no license info
+
 * requirejs
   URL: http://requirejs.org
   Version: 2.3.2
