@@ -60,6 +60,9 @@ if (args.template) {
 
 // Generate the report and output it to stdout.
 generateReport(opts).then(report => {
+	report.warnings.forEach(message => {
+		process.stderr.write(`WARNING: ${message}\n`);
+	});
 	process.stdout.write(report.toString());
 }).catch(err => {
 	process.stderr.write(err.stack);

@@ -47,10 +47,15 @@ function getBowerLicenses(opts) {
 	return new Promise((resolve, reject) => {
 		bowerLicenses.init({ directory: bowerDir }, function(licenses, err) {
 			if (err) { return reject(err); }
+			let warnings = [];
 			let reformatted = Object.keys(licenses).map(key => {
 				let data = licenses[key];
 				let [unused, name, version] = key.match(/^(.*)@(.*)$/); // eslint-disable-line no-unused-vars
 				data.name = name;
+				// If the bower-license module has no idea, it will set licenses to "UNKNOWN".
+				if (typeof data.licenses === 'string') {
+					data.licenses = [data.licenses];
+				}
 				// Handle the license guesses (https://github.com/AceMetrix/bower-license#notes).
 				// If there is at least one reliable (non-guess) license, remove the guesses.
 				// Otherwise strip off the asterisks.
@@ -58,13 +63,18 @@ function getBowerLicenses(opts) {
 					data.licenses = data.licenses.filter(isNotAGuess);
 				} else {
 					data.licenses = data.licenses.map(license => {
+						let stripped = license.replace(/\*$/, '');
 						// Remove the "*" that is added to guesses.
-						return license.replace(/\*$/, '');
+						warnings.push(
+							`${data.name} module does not have a "license" property, ` +
+							`inferring as ${stripped}`);
+						return stripped;
 					});
 				}
 				data.version = version;
 				return data;
 			});
+			reformatted.warnings = warnings;
 			resolve(reformatted);
 		});
 	});
@@ -159,7 +169,15 @@ function generateReport(opts) {
 		collectors.push(getBowerLicenses(opts));
 	}
 
+	let warnings = [];
 	return Promise.all(collectors).then(results => {
+		// Save the warnings.
+		results.forEach(result => {
+			if (result.warnings) {
+				warnings = warnings.concat(result.warnings);
+			}
+		});
+
 		// Combine the results from all the collectors.
 		return Array.prototype.concat.apply([], results);
 	}).then(licenses => {
@@ -175,8 +193,13 @@ function generateReport(opts) {
 		// Correct any invalid licenses.
 		return licenses.map(licenseInfo => {
 			licenseInfo.licenses = licenseInfo.licenses.map(licenseName => {
+				// Correct SPDX licenses.
 				let corrected = correctSpdx(licenseName);
 				if (corrected) { return corrected; }
+
+				// Rename "UNKNOWN" to more human-friendly version.
+				if (licenseName === 'UNKNOWN') { return 'Unknown'; }
+
 				return licenseName;
 			});
 			return licenseInfo;
@@ -204,6 +227,7 @@ function generateReport(opts) {
 		let compiledTemplate = _.template(opts.template);
 		let context = Object.assign({}, opts.context, { licenses: licenses });
 		report.generated = compiledTemplate(context);
+		report.warnings = warnings;
 		return report;
 	});
 }
