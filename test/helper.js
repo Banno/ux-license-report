@@ -9,6 +9,15 @@ let getReport = (filename) => {
 	return fs.readFileSync(filename, 'utf8');
 };
 
+// Yarn and npm generate different package.json for installed packages.
+// This normalizes the generated report (string) so that it matches
+//   the expected output from an `npm install`.
+let normalizeReport = report => {
+	// npm creates a "homepage" property for "bower-license", but yarn does not.
+	let homepageLine = '  URL: https://github.com/AceMetrix/bower-license#readme\n';
+	return report.replace(/(bower-license\n)( {2}Version:)/, `$1${homepageLine}$2`);
+};
+
 // Custom Jasmine matchers to check if the value is a Report object.
 let toBeReport = (util, customEqualityTesters) => {
 	return {
@@ -35,3 +44,4 @@ exports.customMatchers = {
 	toBeReport: toBeReport
 };
 exports.getReport = getReport;
+exports.normalizeReport = normalizeReport;

@@ -1,16 +1,16 @@
 'use strict';
 describe('default options', () => {
 
-	const fs = require('fs');
-	const helper = require('./helper');
+	const { customMatchers, getReport, normalizeReport } = require('./helper');
 	const module = require('../');
+	const fs = require('fs');
 	const tempfile = require('tempfile');
 
 	let report, expectedReport;
 
 	beforeAll(done => {
-		jasmine.addMatchers(helper.customMatchers);
-		expectedReport = helper.getReport('default-report.txt');
+		jasmine.addMatchers(customMatchers);
+		expectedReport = getReport('default-report.txt');
 		module.generateReport()
 			.then(r => { report = r; })
 			.then(done)
@@ -26,7 +26,7 @@ describe('default options', () => {
 	});
 
 	it('toString() should return the report', () => {
-		expect(report.toString()).toBe(expectedReport);
+		expect(normalizeReport(report.toString())).toBe(expectedReport);
 	});
 
 	describe('write()', () => {
@@ -38,7 +38,7 @@ describe('default options', () => {
 
 		it('should save the report', () => {
 			report.write(outFile);
-			expect(fs.readFileSync(outFile, 'utf8')).toBe(expectedReport);
+			expect(normalizeReport(fs.readFileSync(outFile, 'utf8'))).toBe(expectedReport);
 		});
 
 	});

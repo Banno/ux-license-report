@@ -1,7 +1,7 @@
 'use strict';
 describe('"include" option', () => {
 
-	const helper = require('./helper');
+	const { getReport, normalizeReport } = require('./helper');
 	const module = require('../');
 	const path = require('path');
 
@@ -10,7 +10,7 @@ describe('"include" option', () => {
 	describe('as ["dev"]', () => {
 
 		beforeAll(done => {
-			expectedReport = helper.getReport('dev-report.txt');
+			expectedReport = getReport('dev-report.txt');
 			module.generateReport({ include: ['dev'] })
 				.then(r => { report = r; })
 				.then(done)
@@ -18,7 +18,7 @@ describe('"include" option', () => {
 		});
 
 		it('should only include dev deps', () => {
-			expect(report.toString()).toBe(expectedReport);
+			expect(normalizeReport(report.toString())).toBe(expectedReport);
 		});
 
 		it('should not throw an error if "devDependencies" is not defined', done => {
@@ -40,7 +40,7 @@ describe('"include" option', () => {
 	describe('as ["npm"]', () => {
 
 		beforeAll(done => {
-			expectedReport = helper.getReport('default-report.txt');
+			expectedReport = getReport('default-report.txt');
 			module.generateReport({ include: ['npm'] })
 				.then(r => { report = r; })
 				.then(done)
@@ -48,7 +48,7 @@ describe('"include" option', () => {
 		});
 
 		it('should only include production deps', () => {
-			expect(report.toString()).toBe(expectedReport);
+			expect(normalizeReport(report.toString())).toBe(expectedReport);
 		});
 
 	});
@@ -56,7 +56,7 @@ describe('"include" option', () => {
 	describe('as ["dev", "npm"]', () => {
 
 		beforeAll(done => {
-			expectedReport = helper.getReport('all-deps-report.txt');
+			expectedReport = getReport('all-deps-report.txt');
 			module.generateReport({ include: ['dev', 'npm'] })
 				.then(r => { report = r; })
 				.then(done)
@@ -64,7 +64,7 @@ describe('"include" option', () => {
 		});
 
 		it('should include all deps', () => {
-			expect(report.toString()).toBe(expectedReport);
+			expect(normalizeReport(report.toString())).toBe(expectedReport);
 		});
 
 	});
