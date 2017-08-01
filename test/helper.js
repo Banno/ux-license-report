@@ -1,12 +1,25 @@
 'use strict';
 
+const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 
 // Retrieves the contents of a file in test/fixtures.
 let getReport = (filename) => {
 	filename = path.resolve(__dirname, 'fixtures', 'reports', filename);
-	return fs.readFileSync(filename, 'utf8');
+	let compiledTemplate = _.template(fs.readFileSync(filename, 'utf8'));
+	let basePath = path.resolve(__dirname, '..', 'node_modules');
+	let pkgInfo = {};
+	let files = fs.readdirSync(basePath);
+	files.forEach(file => {
+		let stats = fs.statSync(path.resolve(basePath, file));
+		if (stats.isDirectory()) {
+			try {
+				pkgInfo[path.basename(file)] = require(path.resolve(basePath, file, 'package.json'));
+			} catch (err) {}
+		}
+	});
+	return compiledTemplate({ pkgs: pkgInfo });
 };
 
 // Yarn and npm generate different package.json for installed packages.

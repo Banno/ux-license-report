@@ -3,49 +3,47 @@ Dependency Licenses
 
 * bower-license
   URL: https://github.com/AceMetrix/bower-license#readme
-  Version: 0.4.5
+  Version: <%- pkgs['bower-license'].version %>
   License: Apache-2.0
   Description: Generates a list of bower dependencies for a project
 
 * jasmine
   URL: http://jasmine.github.io/
-  Version: 2.7.0
+  Version: <%- pkgs['jasmine'].version %>
   License: MIT
   Description: Command line jasmine
 
 * lodash
   URL: https://lodash.com/
-  Version: 4.17.4
+  Version: <%- pkgs['lodash'].version %>
   License: MIT
   Description: Lodash modular utilities.
 
 * minimist
   URL: https://github.com/substack/minimist
-  Version: 1.2.0
+  Version: <%- pkgs['minimist'].version %>
   License: MIT
   Description: parse argument options
 
 * nlf
   URL: https://github.com/iandotkelly/nlf
-  Version: 1.4.3
+  Version: <%- pkgs['nlf'].version %>
   License: MIT
   Description: Find licenses for a node application and its node_module dependencies
 
 * spdx-correct
-  URL: https://github.com/kemitchell/spdx-correct.js#readme
-  Version: 1.0.2
+  Version: <%- pkgs['spdx-correct'].version %>
   License: Apache-2.0
   Description: correct invalid SPDX identifiers
 
 * tempfile
-  URL: https://github.com/sindresorhus/tempfile#readme
-  Version: 1.1.1
+  Version: <%- pkgs['tempfile'].version %>
   License: MIT
   Description: Get a random temp file path
 
 * ux-lint
   URL: https://github.com/Banno/ux-lint
-  Version: 1.7.1
+  Version: <%- pkgs['ux-lint'].version %>
   License: Apache-2.0
   Description: Linting tool for Banno UX projects
 
