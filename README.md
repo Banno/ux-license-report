@@ -56,8 +56,8 @@ Call the script with the `--help` option (`./generate-license-report.js --help`)
 Please add tests and maintain the existing styling when adding and updating the code.
 
 ```
-npm run lint  # run linting
-npm test      # run tests
+yarn lint  # run linting
+yarn test  # run tests
 ```
 
 ## Bugs & Feature Requests
