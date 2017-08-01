@@ -45,7 +45,7 @@ function getBowerLicenses(opts) {
 	let isAGuess = str => { return str.match(/\*$/); };
 	let isNotAGuess = str => { return !isAGuess(str); };
 	return new Promise((resolve, reject) => {
-		bowerLicenses.init({ directory: bowerDir }, function(licenses, err) {
+		bowerLicenses.init({ directory: bowerDir }, (licenses, err) => {
 			if (err) { return reject(err); }
 			let warnings = [];
 			let reformatted = Object.keys(licenses).map(key => {
@@ -105,7 +105,7 @@ function getNpmLicenses(opts) {
 					depth: 0,
 					production: !opts.include.includes('dev'),
 					summaryMode: 'off'
-				}, function(err, data) {
+				}, (err, data) => {
 					if (err) { return reject(err); }
 					resolve(data);
 				});

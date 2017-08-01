@@ -29,7 +29,7 @@
   "devDependencies": {
     "jasmine": "^2.5.3",
     "tempfile": "^1.1.1",
-    "ux-lint": "^1.4.0"
+    "ux-lint": "^1.7.1"
   },
   "dependencies": {
     "bower-license": "git+https://github.com/banno/bower-license.git",
