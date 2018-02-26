@@ -26,6 +26,7 @@ Dependency Licenses
   Description: Find licenses for a node application and its node_module dependencies
 
 * spdx-correct
+  URL: https://github.com/kemitchell/spdx-correct.js#readme
   Version: <%- pkgs['spdx-correct'].version %>
   License: Apache-2.0
   Description: correct invalid SPDX identifiers
