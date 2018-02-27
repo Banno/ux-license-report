@@ -7,3 +7,9 @@ Dependency Licenses
   License: WTFPL
   Description: String left pad
 
+* random-string
+  URL: https://github.com/valiton/node-random-string
+  Version: 0.2.0
+  License: MIT
+  Description: Simple Module for generating Random Strings
+

@@ -181,6 +181,20 @@ function generateReport(opts) {
 		// Combine the results from all the collectors.
 		return Array.prototype.concat.apply([], results);
 	}).then(licenses => {
+		// Map deprecated license objects to their `type` property
+		return licenses.map(info => {
+			if (info.licenses.length > 0) {
+				info.licenses = info.licenses.map(license => {
+					if (typeof license === 'string') { return license; }
+					if (license.type) { return license.type; }
+					// License is not a string and does not have a type property.
+					return 'Unknown';
+				});
+			}
+
+			return info;
+		});
+	}).then(licenses => {
 		// Exclude "UNLICENSED" licenses.
 		// It's not useful info, and spdx-correct incorrectly corrects it to the Unlicense.
 		return licenses.map(info => {
