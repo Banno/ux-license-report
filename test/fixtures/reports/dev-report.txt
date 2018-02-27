@@ -8,7 +8,6 @@ Dependency Licenses
   Description: Command line jasmine
 
 * tempfile
-  URL: https://github.com/sindresorhus/tempfile#readme
   Version: <%- pkgs['tempfile'].version %>
   License: MIT
   Description: Get a random temp file path
