@@ -42,15 +42,17 @@ Report.prototype.write = function(filename) {
 //   * version: string
 function getBowerLicenses(opts) {
 	let bowerDir = path.join(opts.path, 'bower_components');
+	let packageNamePattern = /^(.*)@(.*)$/;
 	let isAGuess = str => { return str.match(/\*$/); };
 	let isNotAGuess = str => { return !isAGuess(str); };
+	let isPackage = str => { return str.match(packageNamePattern); };
 	return new Promise((resolve, reject) => {
 		bowerLicenses.init({ directory: bowerDir }, (licenses, err) => {
 			if (err) { return reject(err); }
 			let warnings = [];
-			let reformatted = Object.keys(licenses).map(key => {
+			let reformatted = Object.keys(licenses).filter(isPackage).map(key => {
 				let data = licenses[key];
-				let [unused, name, version] = key.match(/^(.*)@(.*)$/); // eslint-disable-line no-unused-vars
+				let [unused, name, version] = key.match(packageNamePattern); // eslint-disable-line no-unused-vars
 				data.name = name;
 				// If the bower-license module has no idea, it will set licenses to "UNKNOWN".
 				if (typeof data.licenses === 'string') {
