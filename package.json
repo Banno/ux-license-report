@@ -1,6 +1,6 @@
 {
   "name": "ux-license-report",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Generates license reports of 3rd-party software dependencies",
   "main": "index.js",
   "bin": {
